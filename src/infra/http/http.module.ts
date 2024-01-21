@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
-import { AppService } from 'src/app/use-cases/app.service';
-import { AppController } from './controllers/app.controller';
+import { RegisterCompetitorUseCase } from 'src/app/use-cases/register-competitor-use-case';
+import { RegisterCompetitorsController } from './controllers/competitors.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [RegisterCompetitorsController],
+  providers: [RegisterCompetitorUseCase],
 })
 export class HttpModule {}
