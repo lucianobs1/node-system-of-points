@@ -1,14 +1,7 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { RegisterCompetitorUseCase } from 'src/app/use-cases/register-competitor-use-case';
 import { CreateRegisterCompetitorDTO } from '../dtos/create-register-competitor-body-dto';
-import { CompetitorAlreadyExistsError } from 'src/app/use-cases/errors/competitor-already-exists-error';
+import { HttpCompetitorAlreadyExistsError } from './errors/http-competitor-already-exists-error';
 
 @Controller('competitors')
 export class RegisterCompetitorsController {
@@ -24,18 +17,7 @@ export class RegisterCompetitorsController {
         name,
       });
     } catch (error) {
-      if (error instanceof CompetitorAlreadyExistsError) {
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error: new CompetitorAlreadyExistsError().message,
-          },
-          HttpStatus.BAD_REQUEST,
-          {
-            cause: error,
-          },
-        );
-      }
+      HttpCompetitorAlreadyExistsError.customError(error);
     }
   }
 }
