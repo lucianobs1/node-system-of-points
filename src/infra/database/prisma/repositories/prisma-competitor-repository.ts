@@ -29,4 +29,27 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
 
     return PrismaCompetitorMapper.toDomain(competitor);
   }
+
+  async findById(id: string) {
+    const competitor = await this.prismaService.competitor.findUnique({
+      where: { id },
+    });
+
+    if (!competitor) {
+      return null;
+    }
+
+    return PrismaCompetitorMapper.toDomain(competitor);
+  }
+
+  async save(competitor: Competitor) {
+    const raw = PrismaCompetitorMapper.toPrisma(competitor);
+
+    await this.prismaService.competitor.update({
+      where: {
+        id: raw.id,
+      },
+      data: raw,
+    });
+  }
 }

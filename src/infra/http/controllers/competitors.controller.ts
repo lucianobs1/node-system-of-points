@@ -1,15 +1,29 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  Response,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { RegisterCompetitorUseCase } from 'src/app/use-cases/register-competitor-use-case';
 import { CreateRegisterCompetitorDTO } from '../dtos/create-register-competitor-body-dto';
-import { HttpCompetitorAlreadyExistsError } from './errors/http-competitor-already-exists-error';
+import { UpdateAvatarCompetitorUseCase } from 'src/app/use-cases/update-avatar-competitor-use-case';
 
 @Controller('competitors')
-export class RegisterCompetitorsController {
-  constructor(private registerCompetitorUseCase: RegisterCompetitorUseCase) {}
+export class CompetitorsController {
+  constructor(
+    private registerCompetitorUseCase: RegisterCompetitorUseCase,
+    private updateAvatarCompetitorUseCase: UpdateAvatarCompetitorUseCase,
+  ) {}
 
   @Post()
   @HttpCode(200)
-  async create(@Body() body: CreateRegisterCompetitorDTO) {
+  async create(@Body() body: CreateRegisterCompetitorDTO, @Response() res) {
     try {
       const { name } = body;
 
@@ -17,7 +31,25 @@ export class RegisterCompetitorsController {
         name,
       });
     } catch (error) {
-      HttpCompetitorAlreadyExistsError.customError(error);
+      return res.json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Patch(':id/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async createPost(
+    @Param() params: { id: string },
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    try {
+      return await this.updateAvatarCompetitorUseCase.execute({
+        params: params,
+        file: file,
+      });
+    } catch (error) {
+      error.message;
     }
   }
 }

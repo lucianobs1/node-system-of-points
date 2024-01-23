@@ -6,16 +6,21 @@ export class PrismaCompetitorMapper {
     return {
       id: competitor.id,
       name: competitor.name,
+      avatar: competitor.avatar,
       createdAt: competitor.createdAt,
       updatedAt: competitor.updatedAt,
     };
   }
 
   static toDomain(rawCompetitor: RawCompetitor): Competitor {
-    return new Competitor({
-      name: rawCompetitor.name,
-      createdAt: rawCompetitor.createdAt,
-      updatedAt: rawCompetitor.updatedAt,
-    });
+    return new Competitor(
+      {
+        name: rawCompetitor.name,
+        avatar: rawCompetitor.avatar,
+        createdAt: rawCompetitor.createdAt,
+        updatedAt: rawCompetitor.updatedAt,
+      },
+      rawCompetitor.id,
+    );
   }
 }
