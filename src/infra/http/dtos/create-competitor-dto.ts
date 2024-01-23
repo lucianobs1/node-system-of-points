@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateRegisterCompetitorDTO {
+export class CreateCompetitorDTO {
   @IsNotEmpty()
   name: string;
 }

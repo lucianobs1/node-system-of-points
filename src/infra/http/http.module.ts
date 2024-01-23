@@ -5,6 +5,9 @@ import { CompetitorsController } from './controllers/competitors.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { MulterConfig } from 'src/shared/multer.config';
 import { UpdateAvatarCompetitorUseCase } from 'src/app/use-cases/update-avatar-competitor-use-case';
+import { CompetitorAvatarController } from './controllers/competitors.avatar.controller';
+import { MulterStorageProvider } from 'src/shared/multer-storage-provider';
+import { IStorageProvider } from 'src/shared/storage-provider';
 
 @Module({
   imports: [
@@ -13,7 +16,14 @@ import { UpdateAvatarCompetitorUseCase } from 'src/app/use-cases/update-avatar-c
       useClass: MulterConfig,
     }),
   ],
-  controllers: [CompetitorsController],
-  providers: [RegisterCompetitorUseCase, UpdateAvatarCompetitorUseCase],
+  controllers: [CompetitorsController, CompetitorAvatarController],
+  providers: [
+    RegisterCompetitorUseCase,
+    UpdateAvatarCompetitorUseCase,
+    {
+      provide: IStorageProvider,
+      useClass: MulterStorageProvider,
+    },
+  ],
 })
 export class HttpModule {}

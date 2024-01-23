@@ -1,21 +1,31 @@
-import { randomBytes } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { CompetitorsRepository } from '../repositories/competitors-repository';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
-import { ResourceEmptyError } from './errors/resource-empty-error';
+import { IStorageProvider } from 'src/shared/storage-provider';
+
+type FileProps = {
+  filename: string;
+  originalname: string;
+  mimeType: string;
+  buffer: Buffer;
+  size: number;
+};
 
 interface UpdateAvatarCompetitorUseCaseRequest {
   params: {
     id: string;
   };
-  file: Express.Multer.File;
+  file: FileProps;
 }
 
 type UpdateAvatarCompetitorUseCaseResponse = void;
 
 @Injectable()
 export class UpdateAvatarCompetitorUseCase {
-  constructor(private competitorsRepository: CompetitorsRepository) {}
+  constructor(
+    private competitorsRepository: CompetitorsRepository,
+    private storageProvider: IStorageProvider,
+  ) {}
 
   async execute({
     params,
@@ -28,14 +38,15 @@ export class UpdateAvatarCompetitorUseCase {
     }
 
     if (!file) {
-      throw new ResourceEmptyError();
+      throw new ResourceNotFoundError();
     }
 
-    const fileHash = randomBytes(16).toString('hex');
-    const fileName = `${fileHash}-${file.originalname}`;
+    if (competitor.avatar) {
+      this.storageProvider.deleteFile(competitor.avatar);
+    }
 
-    competitor.avatar = fileName;
+    competitor.avatar = file.filename;
 
-    return await this.competitorsRepository.save(competitor);
+    await this.competitorsRepository.save(competitor);
   }
 }

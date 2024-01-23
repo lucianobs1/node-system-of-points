@@ -1,14 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import {
-  MulterModuleOptions,
-  MulterOptionsFactory,
-} from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+
+import { MulterOptionsFactory } from '@nestjs/platform-express';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class MulterConfig implements MulterOptionsFactory {
-  createMulterOptions(): MulterModuleOptions {
+  createMulterOptions() {
     return {
-      dest: './uploads',
+      storage: diskStorage({
+        destination: 'uploads',
+        filename(req, file, callback) {
+          const fileHash = randomBytes(10).toString('hex');
+          const fileName = `${fileHash}-${file.originalname}`;
+
+          return callback(null, fileName);
+        },
+      }),
     };
   }
 }
