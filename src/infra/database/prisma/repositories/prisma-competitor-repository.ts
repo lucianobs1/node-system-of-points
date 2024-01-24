@@ -16,20 +16,6 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
     });
   }
 
-  async findByName(name: string) {
-    const competitor = await this.prismaService.competitor.findUnique({
-      where: {
-        name,
-      },
-    });
-
-    if (!competitor) {
-      return null;
-    }
-
-    return PrismaCompetitorMapper.toDomain(competitor);
-  }
-
   async findById(id: string) {
     const competitor = await this.prismaService.competitor.findUnique({
       where: { id },

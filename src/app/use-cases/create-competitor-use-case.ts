@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CompetitorsRepository } from '../repositories/competitors-repository';
-import { CompetitorAlreadyExistsError } from './errors/competitor-already-exists-error';
 import { Competitor } from '../entities/competitor';
 
 interface CreateCompetitorRequest {
   name: string;
+  surname: string;
 }
 
 type CreateCompetitorResponse = void;
@@ -15,14 +15,9 @@ export class CreateCompetitorUseCase {
 
   async execute({
     name,
+    surname,
   }: CreateCompetitorRequest): Promise<CreateCompetitorResponse> {
-    const hasCompetitor = await this.competitorsRepository.findByName(name);
-
-    if (hasCompetitor) {
-      throw new CompetitorAlreadyExistsError();
-    }
-
-    const competitor = new Competitor({ name });
+    const competitor = new Competitor({ name, surname });
 
     await this.competitorsRepository.create(competitor);
   }

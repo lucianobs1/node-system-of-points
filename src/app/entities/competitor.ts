@@ -3,6 +3,7 @@ import { Replace } from 'src/helpers/Replace';
 
 export interface CompetitorProps {
   name: string;
+  surname: string;
   avatar?: string;
   createdAt?: Date;
   updatedAt?: Date | null;
@@ -31,6 +32,10 @@ export class Competitor {
     return this.props.name;
   }
 
+  public get surname() {
+    return this.props.surname;
+  }
+
   public get avatar() {
     return this.props.avatar;
   }
@@ -45,6 +50,10 @@ export class Competitor {
 
   public set name(name: string) {
     this.props.name = name;
+  }
+
+  public set surname(surname: string) {
+    this.props.surname = surname;
   }
 
   public set avatar(avatar: string) {

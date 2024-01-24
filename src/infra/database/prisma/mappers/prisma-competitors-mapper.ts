@@ -6,6 +6,7 @@ export class PrismaCompetitorMapper {
     return {
       id: competitor.id,
       name: competitor.name,
+      surname: competitor.surname,
       avatar: competitor.avatar,
       createdAt: competitor.createdAt,
       updatedAt: competitor.updatedAt,
@@ -16,6 +17,7 @@ export class PrismaCompetitorMapper {
     return new Competitor(
       {
         name: rawCompetitor.name,
+        surname: rawCompetitor.surname,
         avatar: rawCompetitor.avatar,
         createdAt: rawCompetitor.createdAt,
         updatedAt: rawCompetitor.updatedAt,

@@ -15,10 +15,11 @@ export class CompetitorsController {
   @HttpCode(200)
   async create(@Body() body: CreateCompetitorDTO) {
     try {
-      const { name } = body;
+      const { name, surname } = body;
 
       await this.createCompetitorUseCase.execute({
         name,
+        surname,
       });
     } catch (error) {
       return error.message;
