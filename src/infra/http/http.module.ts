@@ -8,6 +8,7 @@ import { UpdateAvatarCompetitorUseCase } from 'src/app/use-cases/update-avatar-c
 import { CompetitorAvatarController } from './controllers/competitors.avatar.controller';
 import { MulterStorageProvider } from 'src/shared/multer-storage-provider';
 import { IStorageProvider } from 'src/shared/storage-provider';
+import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { IStorageProvider } from 'src/shared/storage-provider';
   controllers: [CompetitorsController, CompetitorAvatarController],
   providers: [
     RegisterCompetitorUseCase,
+    UpdateCompetitorUseCase,
     UpdateAvatarCompetitorUseCase,
     {
       provide: IStorageProvider,

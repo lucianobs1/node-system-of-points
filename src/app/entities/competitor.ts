@@ -50,4 +50,8 @@ export class Competitor {
   public set avatar(avatar: string) {
     this.props.avatar = avatar;
   }
+
+  public updated() {
+    this.props.updatedAt = new Date();
+  }
 }
