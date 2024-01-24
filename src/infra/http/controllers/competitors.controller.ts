@@ -30,11 +30,12 @@ export class CompetitorsController {
   @HttpCode(202)
   async update(@Param('id') id: string, @Body() body: UpdateCompetitorDTO) {
     try {
-      const { name } = body;
+      const { name, surname } = body;
 
       const competitor = await this.updateCompetitorUseCase.execute({
         id,
         name,
+        surname,
       });
 
       return competitor;

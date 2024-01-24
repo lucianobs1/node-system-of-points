@@ -6,6 +6,7 @@ import { Competitor } from '../entities/competitor';
 interface UpdateCompetitorRequest {
   id: string;
   name: string;
+  surname: string;
 }
 
 interface UpdateCompetitorResponse {
@@ -19,6 +20,7 @@ export class UpdateCompetitorUseCase {
   async execute({
     id,
     name,
+    surname,
   }: UpdateCompetitorRequest): Promise<UpdateCompetitorResponse> {
     const competitor = await this.competitorsRepository.findById(id);
 
@@ -30,7 +32,12 @@ export class UpdateCompetitorUseCase {
       return;
     }
 
+    if (!surname) {
+      return;
+    }
+
     competitor.name = name;
+    competitor.surname = surname;
 
     competitor.updated();
 
