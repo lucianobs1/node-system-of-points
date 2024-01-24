@@ -1,14 +1,24 @@
-import { Body, Controller, HttpCode, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateCompetitorDTO } from '../dtos/create-competitor-dto';
 import { UpdateCompetitorDTO } from '../dtos/update-competitor-dto';
 import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
+import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 
 @Controller('competitors')
 export class CompetitorsController {
   constructor(
     private createCompetitorUseCase: CreateCompetitorUseCase,
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
+    private getCompetitorsUseCase: GetCompetitorsUseCase,
   ) {}
 
   @Post()
@@ -39,6 +49,18 @@ export class CompetitorsController {
       });
 
       return competitor;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  @Get()
+  @HttpCode(202)
+  async get() {
+    try {
+      const competitors = await this.getCompetitorsUseCase.execute();
+
+      return competitors;
     } catch (error) {
       return error.message;
     }

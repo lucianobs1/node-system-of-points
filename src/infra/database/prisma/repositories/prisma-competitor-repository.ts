@@ -28,6 +28,16 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
     return PrismaCompetitorMapper.toDomain(competitor);
   }
 
+  async findMany() {
+    const competitorsList = await this.prismaService.competitor.findMany();
+
+    const competitors = competitorsList.map((competitor) =>
+      PrismaCompetitorMapper.toDomain(competitor),
+    );
+
+    return competitors;
+  }
+
   async save(competitor: Competitor) {
     const raw = PrismaCompetitorMapper.toPrisma(competitor);
 
