@@ -28,7 +28,7 @@ export class CompetitorAvatarController {
         file,
       });
     } catch (error) {
-      error.message;
+      return error.message;
     }
   }
 }
