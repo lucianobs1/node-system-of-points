@@ -1,13 +1,13 @@
 import { Body, Controller, HttpCode, Param, Post, Put } from '@nestjs/common';
-import { RegisterCompetitorUseCase } from 'src/app/use-cases/register-competitor-use-case';
 import { CreateCompetitorDTO } from '../dtos/create-competitor-dto';
 import { UpdateCompetitorDTO } from '../dtos/update-competitor-dto';
 import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
+import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 
 @Controller('competitors')
 export class CompetitorsController {
   constructor(
-    private registerCompetitorUseCase: RegisterCompetitorUseCase,
+    private createCompetitorUseCase: CreateCompetitorUseCase,
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
   ) {}
 
@@ -17,7 +17,7 @@ export class CompetitorsController {
     try {
       const { name } = body;
 
-      await this.registerCompetitorUseCase.execute({
+      await this.createCompetitorUseCase.execute({
         name,
       });
     } catch (error) {

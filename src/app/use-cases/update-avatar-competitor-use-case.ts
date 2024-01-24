@@ -11,14 +11,14 @@ type FileProps = {
   size: number;
 };
 
-interface UpdateAvatarCompetitorUseCaseRequest {
+interface UpdateAvatarCompetitorRequest {
   params: {
     id: string;
   };
   file: FileProps;
 }
 
-type UpdateAvatarCompetitorUseCaseResponse = void;
+type UpdateAvatarCompetitorResponse = void;
 
 @Injectable()
 export class UpdateAvatarCompetitorUseCase {
@@ -30,7 +30,7 @@ export class UpdateAvatarCompetitorUseCase {
   async execute({
     params,
     file,
-  }: UpdateAvatarCompetitorUseCaseRequest): Promise<UpdateAvatarCompetitorUseCaseResponse> {
+  }: UpdateAvatarCompetitorRequest): Promise<UpdateAvatarCompetitorResponse> {
     const competitor = await this.competitorsRepository.findById(params.id);
 
     if (!competitor) {
