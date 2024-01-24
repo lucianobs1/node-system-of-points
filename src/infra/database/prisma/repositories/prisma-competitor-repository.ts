@@ -48,4 +48,12 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
       data: raw,
     });
   }
+
+  async delete(competitor: Competitor) {
+    await this.prismaService.competitor.delete({
+      where: {
+        id: competitor.id,
+      },
+    });
+  }
 }

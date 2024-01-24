@@ -11,6 +11,7 @@ import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
+import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-info
     UpdateAvatarCompetitorUseCase,
     GetCompetitorsUseCase,
     GetCompetitorInfosUseCase,
+    DeleteCompetitorUseCase,
     {
       provide: IStorageProvider,
       useClass: MulterStorageProvider,

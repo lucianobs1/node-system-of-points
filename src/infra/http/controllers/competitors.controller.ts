@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -13,6 +14,7 @@ import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
+import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -21,11 +23,12 @@ export class CompetitorsController {
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
     private getCompetitorsUseCase: GetCompetitorsUseCase,
     private getCompetitorInfosUseCase: GetCompetitorInfosUseCase,
+    private deleteCompetitorUseCase: DeleteCompetitorUseCase,
   ) {}
 
   @Post()
   @HttpCode(200)
-  async create(@Body() body: CreateCompetitorDTO) {
+  async createCompetitor(@Body() body: CreateCompetitorDTO) {
     try {
       const { name, surname } = body;
 
@@ -40,7 +43,10 @@ export class CompetitorsController {
 
   @Put(':id/update')
   @HttpCode(202)
-  async update(@Param('id') id: string, @Body() body: UpdateCompetitorDTO) {
+  async updateCompetitor(
+    @Param('id') id: string,
+    @Body() body: UpdateCompetitorDTO,
+  ) {
     try {
       const { name, surname } = body;
 
@@ -73,6 +79,20 @@ export class CompetitorsController {
   async getCompetitorInfos(@Param() params: { id: string }) {
     try {
       const competitors = await this.getCompetitorInfosUseCase.execute({
+        params,
+      });
+
+      return competitors;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(200)
+  async deleteCompetitor(@Param() params: { id: string }) {
+    try {
+      const competitors = await this.deleteCompetitorUseCase.execute({
         params,
       });
 
