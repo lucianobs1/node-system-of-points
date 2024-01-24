@@ -12,6 +12,7 @@ import { UpdateCompetitorDTO } from '../dtos/update-competitor-dto';
 import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
+import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -19,6 +20,7 @@ export class CompetitorsController {
     private createCompetitorUseCase: CreateCompetitorUseCase,
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
     private getCompetitorsUseCase: GetCompetitorsUseCase,
+    private getCompetitorInfosUseCase: GetCompetitorInfosUseCase,
   ) {}
 
   @Post()
@@ -56,9 +58,23 @@ export class CompetitorsController {
 
   @Get()
   @HttpCode(202)
-  async get() {
+  async getCompetitors() {
     try {
       const competitors = await this.getCompetitorsUseCase.execute();
+
+      return competitors;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  @Get(':id')
+  @HttpCode(202)
+  async getCompetitorInfos(@Param() params: { id: string }) {
+    try {
+      const competitors = await this.getCompetitorInfosUseCase.execute({
+        params,
+      });
 
       return competitors;
     } catch (error) {
