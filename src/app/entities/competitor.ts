@@ -5,6 +5,7 @@ export interface CompetitorProps {
   name: string;
   surname: string;
   avatar?: string;
+  score?: number;
   createdAt?: Date;
   updatedAt?: Date | null;
 }
@@ -40,6 +41,10 @@ export class Competitor {
     return this.props.avatar;
   }
 
+  public get score() {
+    return this.props.score;
+  }
+
   public get createdAt() {
     return this.props.createdAt;
   }
@@ -58,6 +63,10 @@ export class Competitor {
 
   public set avatar(avatar: string) {
     this.props.avatar = avatar;
+  }
+
+  public set score(score: number) {
+    this.props.score = score;
   }
 
   public updated() {

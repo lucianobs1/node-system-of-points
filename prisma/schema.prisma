@@ -15,8 +15,36 @@ model Competitor {
   name      String
   surname   String
   avatar    String?
+  score     Int       @default(0)
   createdAt DateTime  @default(now())
   updatedAt DateTime?
+  rewards   Reward[]
 
   @@map("competitors")
+}
+
+model Category {
+  id          String    @id
+  description String
+  points      Int       @default(0)
+  money       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  reward      Reward?
+
+  @@map("categories")
+}
+
+model Reward {
+  id          String @id
+  description String
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @unique
+
+  Competitor   Competitor @relation(fields: [competitorId], references: [id])
+  competitorId String
+  rewardedAt   DateTime   @default(now())
+
+  @@map("rewards")
 }
