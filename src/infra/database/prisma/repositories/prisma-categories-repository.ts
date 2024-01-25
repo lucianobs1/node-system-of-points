@@ -16,6 +16,18 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
     });
   }
 
+  async findById(id: string) {
+    const category = await this.prismaService.category.findUnique({
+      where: { id },
+    });
+
+    if (!category) {
+      return null;
+    }
+
+    return PrismaCategoryMapper.toDomain(category);
+  }
+
   async findMany() {
     const CategoriesList = await this.prismaService.category.findMany();
 
