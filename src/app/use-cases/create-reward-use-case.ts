@@ -46,6 +46,10 @@ export class CreateRewardUseCase {
       description,
     });
 
+    competitor.score += category.points;
+
+    await this.competitorsRepository.save(competitor);
+
     const reward = await this.rewardsRepository.create(newReward);
 
     return { reward };

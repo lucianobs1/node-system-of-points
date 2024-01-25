@@ -25,8 +25,6 @@ export class CreateCategoryUseCase {
       points,
     });
 
-    console.log(category);
-
     await this.categoriesRepository.create(category);
   }
 }
