@@ -6,7 +6,7 @@ export interface CompetitorProps {
   surname: string;
   avatar?: string;
   score?: number;
-  createdAt?: Date;
+  createdAt: Date;
   updatedAt?: Date | null;
 }
 
