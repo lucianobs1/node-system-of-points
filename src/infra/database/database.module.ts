@@ -4,6 +4,8 @@ import { PrismaCompetitorsRepository } from './prisma/repositories/prisma-compet
 import { CompetitorsRepository } from 'src/app/repositories/competitors-repository';
 import { CategoriesRepository } from 'src/app/repositories/categories-repository';
 import { PrismaCategoriesRepository } from './prisma/repositories/prisma-categories-repository';
+import { RewardsRepository } from 'src/app/repositories/rewards-repository';
+import { PrismaRewardsRepository } from './prisma/repositories/prisma-rewards-repository';
 
 @Module({
   providers: [
@@ -16,7 +18,11 @@ import { PrismaCategoriesRepository } from './prisma/repositories/prisma-categor
       provide: CategoriesRepository,
       useClass: PrismaCategoriesRepository,
     },
+    {
+      provide: RewardsRepository,
+      useClass: PrismaRewardsRepository,
+    },
   ],
-  exports: [CompetitorsRepository, CategoriesRepository],
+  exports: [CompetitorsRepository, CategoriesRepository, RewardsRepository],
 })
 export class DatabaseModule {}
