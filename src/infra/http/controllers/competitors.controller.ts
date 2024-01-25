@@ -15,6 +15,7 @@ import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
+import { CompetitorViewModel } from '../view-models/competitors-view-model';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -66,9 +67,13 @@ export class CompetitorsController {
   @HttpCode(202)
   async getCompetitors() {
     try {
-      const competitors = await this.getCompetitorsUseCase.execute();
+      const { competitors } = await this.getCompetitorsUseCase.execute();
 
-      return competitors;
+      return {
+        competitors: competitors.map((competitor, index) =>
+          CompetitorViewModel.toHTTP(competitor, competitor.rewards[index]),
+        ),
+      };
     } catch (error) {
       return error.message;
     }

@@ -29,11 +29,18 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
   }
 
   async findMany() {
-    const competitorsList = await this.prismaService.competitor.findMany();
+    const competitorsList = await this.prismaService.competitor.findMany({
+      include: {
+        rewards: true,
+      },
+    });
 
-    const competitors = competitorsList.map((competitor) =>
-      PrismaCompetitorMapper.toDomain(competitor),
-    );
+    const competitors = competitorsList.map((competitor, index) => {
+      return PrismaCompetitorMapper.toDomain(
+        competitor,
+        competitor.rewards[index],
+      );
+    });
 
     return competitors;
   }

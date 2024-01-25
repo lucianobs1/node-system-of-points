@@ -1,5 +1,10 @@
-import { Competitor as RawCompetitor } from '@prisma/client';
+import {
+  Competitor as RawCompetitor,
+  Reward as RawReward,
+} from '@prisma/client';
+
 import { Competitor } from 'src/app/entities/competitor';
+import { Reward } from 'src/app/entities/reward';
 
 export class PrismaCompetitorMapper {
   static toPrisma(competitor: Competitor) {
@@ -14,7 +19,10 @@ export class PrismaCompetitorMapper {
     };
   }
 
-  static toDomain(rawCompetitor: RawCompetitor): Competitor {
+  static toDomain(
+    rawCompetitor: RawCompetitor,
+    rawReward?: RawReward,
+  ): Competitor {
     return new Competitor(
       {
         name: rawCompetitor.name,
@@ -23,6 +31,17 @@ export class PrismaCompetitorMapper {
         score: rawCompetitor.score,
         createdAt: rawCompetitor.createdAt,
         updatedAt: rawCompetitor.updatedAt,
+        rewards: [
+          new Reward(
+            {
+              description: rawReward.description,
+              rewardedAt: rawReward.rewardedAt,
+              categoryId: rawReward.categoryId,
+              competitorId: rawReward.competitorId,
+            },
+            rawReward.id,
+          ),
+        ],
       },
       rawCompetitor.id,
     );

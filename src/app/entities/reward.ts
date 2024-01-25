@@ -43,8 +43,4 @@ export class Reward {
   public set description(description: string) {
     this.props.description = description;
   }
-
-  public updated() {
-    this.props.rewardedAt = new Date();
-  }
 }

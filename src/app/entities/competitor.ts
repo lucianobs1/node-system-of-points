@@ -1,11 +1,13 @@
 import { randomUUID } from 'node:crypto';
 import { Replace } from 'src/helpers/Replace';
+import { Reward } from './reward';
 
 export interface CompetitorProps {
   name: string;
   surname: string;
   avatar?: string;
   score?: number;
+  rewards?: Reward[];
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -15,12 +17,13 @@ export class Competitor {
   private props: CompetitorProps;
 
   constructor(
-    props: Replace<CompetitorProps, { createdAt?: Date }>,
+    props: Replace<CompetitorProps, { createdAt?: Date; rewards?: Reward[] }>,
     id?: string,
   ) {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
+      rewards: props.rewards ?? [],
       createdAt: props.createdAt ?? new Date(),
     };
   }
@@ -45,6 +48,10 @@ export class Competitor {
     return this.props.score;
   }
 
+  public get rewards() {
+    return this.props.rewards;
+  }
+
   public get createdAt() {
     return this.props.createdAt;
   }
@@ -58,7 +65,7 @@ export class Competitor {
   }
 
   public set surname(surname: string) {
-    this.props.surname = surname;
+    this.props.name = surname;
   }
 
   public set avatar(avatar: string) {
