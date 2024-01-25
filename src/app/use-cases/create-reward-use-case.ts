@@ -47,6 +47,7 @@ export class CreateRewardUseCase {
     });
 
     competitor.score += category.points;
+    competitor.updated();
 
     await this.competitorsRepository.save(competitor);
 

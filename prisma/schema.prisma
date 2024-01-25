@@ -32,7 +32,7 @@ model Category {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
 
-  reward Reward?
+  rewards Reward[]
 
   @@map("categories")
 }
@@ -43,7 +43,7 @@ model Reward {
   rewardedAt  DateTime @default(now())
 
   category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String   @unique
+  categoryId String
 
   Competitor   Competitor @relation(fields: [competitorId], references: [id])
   competitorId String
