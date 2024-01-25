@@ -34,4 +34,4 @@ import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use
     },
   ],
 })
-export class HttpCompetitor {}
+export class HttpCompetitorModule {}
