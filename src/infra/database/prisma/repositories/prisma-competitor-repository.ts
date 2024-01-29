@@ -19,6 +19,9 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
   async findById(id: string) {
     const competitor = await this.prismaService.competitor.findUnique({
       where: { id },
+      include: {
+        rewards: true,
+      },
     });
 
     if (!competitor) {
@@ -36,7 +39,8 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
     });
 
     const competitors = competitorsList.map((competitor) => {
-      return PrismaCompetitorMapper.toDomain(competitor);
+      console.log(competitor);
+      return PrismaCompetitorMapper.toDomain(competitor, competitor.rewards);
     });
 
     return competitors;

@@ -70,8 +70,8 @@ export class CompetitorsController {
       const { competitors } = await this.getCompetitorsUseCase.execute();
 
       return {
-        competitors: competitors.map((competitor, index) =>
-          CompetitorViewModel.toHTTP(competitor, competitor.rewards[index]),
+        competitors: competitors.map((competitor) =>
+          CompetitorViewModel.toHTTP(competitor, competitor.rewards),
         ),
       };
     } catch (error) {

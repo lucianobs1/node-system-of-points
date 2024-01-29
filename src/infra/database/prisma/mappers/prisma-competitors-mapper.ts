@@ -21,9 +21,9 @@ export class PrismaCompetitorMapper {
 
   static toDomain(
     rawCompetitor: RawCompetitor,
-    rawReward?: RawReward,
+    rewardsByCompetitor?: RawReward[],
   ): Competitor {
-    if (rawReward) {
+    if (rewardsByCompetitor) {
       return new Competitor(
         {
           name: rawCompetitor.name,
@@ -32,17 +32,18 @@ export class PrismaCompetitorMapper {
           score: rawCompetitor.score,
           createdAt: rawCompetitor.createdAt,
           updatedAt: rawCompetitor.updatedAt,
-          rewards: [
-            new Reward(
-              {
-                description: rawReward.description,
-                rewardedAt: rawReward.rewardedAt,
-                categoryId: rawReward.categoryId,
-                competitorId: rawReward.competitorId,
-              },
-              rawReward.id,
-            ),
-          ],
+          rewards: rewardsByCompetitor.map(
+            (rewardByCompetitor) =>
+              new Reward(
+                {
+                  description: rewardByCompetitor.description,
+                  rewardedAt: rewardByCompetitor.rewardedAt,
+                  categoryId: rewardByCompetitor.categoryId,
+                  competitorId: rewardByCompetitor.competitorId,
+                },
+                rewardByCompetitor.id,
+              ),
+          ),
         },
         rawCompetitor.id,
       );
