@@ -83,9 +83,11 @@ export class CompetitorsController {
   @HttpCode(202)
   async getCompetitor(@Param() params: { id: string }) {
     try {
-      const competitor = await this.getCompetitorUseCase.execute({ params });
+      const { competitor } = await this.getCompetitorUseCase.execute({
+        params,
+      });
 
-      return competitor;
+      return CompetitorViewModel.toHTTP(competitor, competitor.rewards);
     } catch (error) {
       return error.message;
     }

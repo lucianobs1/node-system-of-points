@@ -10,9 +10,14 @@ export class CompetitorViewModel {
         surname: competitor.surname,
         createdAt: competitor.createdAt,
         updatedAt: competitor.updatedAt,
-        rewards: rewardsByCompetitor.map(
-          (rewardByCompetitor) => rewardByCompetitor,
-        ),
+        rewards: rewardsByCompetitor.map((rewardCompetitor) => {
+          return {
+            id: rewardCompetitor.id,
+            description: rewardCompetitor.description,
+            rewardedAt: rewardCompetitor.rewardedAt,
+            categoryId: rewardCompetitor.categoryId,
+          };
+        }),
       };
     } else {
       return {
