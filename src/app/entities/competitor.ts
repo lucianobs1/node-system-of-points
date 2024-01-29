@@ -65,7 +65,7 @@ export class Competitor {
   }
 
   public set surname(surname: string) {
-    this.props.name = surname;
+    this.props.surname = surname;
   }
 
   public set avatar(avatar: string) {

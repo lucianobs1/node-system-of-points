@@ -51,13 +51,13 @@ export class CompetitorsController {
     try {
       const { name, surname } = body;
 
-      const competitor = await this.updateCompetitorUseCase.execute({
+      const { competitor } = await this.updateCompetitorUseCase.execute({
         id,
         name,
         surname,
       });
 
-      return competitor;
+      return CompetitorViewModel.toHTTP(competitor, competitor.rewards);
     } catch (error) {
       return error.message;
     }

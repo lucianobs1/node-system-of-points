@@ -38,7 +38,6 @@ export class UpdateCompetitorUseCase {
 
     competitor.name = name;
     competitor.surname = surname;
-
     competitor.updated();
 
     await this.competitorsRepository.save(competitor);

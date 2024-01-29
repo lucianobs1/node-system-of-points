@@ -45,7 +45,7 @@ model Reward {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 
-  Competitor   Competitor @relation(fields: [competitorId], references: [id])
+  Competitor   Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
   competitorId String
 
   @@map("rewards")

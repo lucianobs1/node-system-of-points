@@ -48,12 +48,16 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
   async save(competitor: Competitor) {
     const raw = PrismaCompetitorMapper.toPrisma(competitor);
 
-    await this.prismaService.competitor.update({
+    console.log(raw);
+
+    const updatedCompetitor = await this.prismaService.competitor.update({
       where: {
         id: raw.id,
       },
       data: raw,
     });
+
+    return PrismaCompetitorMapper.toDomain(updatedCompetitor);
   }
 
   async delete(competitor: Competitor) {
