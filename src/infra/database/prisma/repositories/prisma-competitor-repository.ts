@@ -35,11 +35,8 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
       },
     });
 
-    const competitors = competitorsList.map((competitor, index) => {
-      return PrismaCompetitorMapper.toDomain(
-        competitor,
-        competitor.rewards[index],
-      );
+    const competitors = competitorsList.map((competitor) => {
+      return PrismaCompetitorMapper.toDomain(competitor);
     });
 
     return competitors;

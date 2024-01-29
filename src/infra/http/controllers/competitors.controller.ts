@@ -13,9 +13,9 @@ import { UpdateCompetitorDTO } from '../dtos/update-competitor-dto';
 import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
-import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 import { CompetitorViewModel } from '../view-models/competitors-view-model';
+import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -23,7 +23,7 @@ export class CompetitorsController {
     private createCompetitorUseCase: CreateCompetitorUseCase,
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
     private getCompetitorsUseCase: GetCompetitorsUseCase,
-    private getCompetitorInfosUseCase: GetCompetitorInfosUseCase,
+    private getCompetitorUseCase: GetCompetitorUseCase,
     private deleteCompetitorUseCase: DeleteCompetitorUseCase,
   ) {}
 
@@ -81,13 +81,11 @@ export class CompetitorsController {
 
   @Get(':id')
   @HttpCode(202)
-  async getCompetitorInfos(@Param() params: { id: string }) {
+  async getCompetitor(@Param() params: { id: string }) {
     try {
-      const competitors = await this.getCompetitorInfosUseCase.execute({
-        params,
-      });
+      const competitor = await this.getCompetitorUseCase.execute({ params });
 
-      return competitors;
+      return competitor;
     } catch (error) {
       return error.message;
     }

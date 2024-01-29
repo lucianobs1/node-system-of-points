@@ -23,27 +23,41 @@ export class PrismaCompetitorMapper {
     rawCompetitor: RawCompetitor,
     rawReward?: RawReward,
   ): Competitor {
-    return new Competitor(
-      {
-        name: rawCompetitor.name,
-        surname: rawCompetitor.surname,
-        avatar: rawCompetitor.avatar,
-        score: rawCompetitor.score,
-        createdAt: rawCompetitor.createdAt,
-        updatedAt: rawCompetitor.updatedAt,
-        rewards: [
-          new Reward(
-            {
-              description: rawReward.description,
-              rewardedAt: rawReward.rewardedAt,
-              categoryId: rawReward.categoryId,
-              competitorId: rawReward.competitorId,
-            },
-            rawReward.id,
-          ),
-        ],
-      },
-      rawCompetitor.id,
-    );
+    if (rawReward) {
+      return new Competitor(
+        {
+          name: rawCompetitor.name,
+          surname: rawCompetitor.surname,
+          avatar: rawCompetitor.avatar,
+          score: rawCompetitor.score,
+          createdAt: rawCompetitor.createdAt,
+          updatedAt: rawCompetitor.updatedAt,
+          rewards: [
+            new Reward(
+              {
+                description: rawReward.description,
+                rewardedAt: rawReward.rewardedAt,
+                categoryId: rawReward.categoryId,
+                competitorId: rawReward.competitorId,
+              },
+              rawReward.id,
+            ),
+          ],
+        },
+        rawCompetitor.id,
+      );
+    } else {
+      return new Competitor(
+        {
+          name: rawCompetitor.name,
+          surname: rawCompetitor.surname,
+          avatar: rawCompetitor.avatar,
+          score: rawCompetitor.score,
+          createdAt: rawCompetitor.createdAt,
+          updatedAt: rawCompetitor.updatedAt,
+        },
+        rawCompetitor.id,
+      );
+    }
   }
 }

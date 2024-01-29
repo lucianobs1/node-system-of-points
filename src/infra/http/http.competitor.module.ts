@@ -9,8 +9,8 @@ import { CompetitorsController } from './controllers/competitors.controller';
 import { UpdateAvatarCompetitorUseCase } from 'src/app/use-cases/update-avatar-competitor-use-case';
 import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use-case';
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
+import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
-import { GetCompetitorInfosUseCase } from 'src/app/use-cases/get-competitor-infos';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 
 @Module({
@@ -26,7 +26,7 @@ import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use
     UpdateCompetitorUseCase,
     UpdateAvatarCompetitorUseCase,
     GetCompetitorsUseCase,
-    GetCompetitorInfosUseCase,
+    GetCompetitorUseCase,
     DeleteCompetitorUseCase,
     {
       provide: IStorageProvider,
