@@ -28,7 +28,7 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
       return null;
     }
 
-    return PrismaCompetitorMapper.toDomain(competitor);
+    return PrismaCompetitorMapper.toDomain(competitor, competitor.rewards);
   }
 
   async findMany() {
@@ -39,7 +39,6 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
     });
 
     const competitors = competitorsList.map((competitor) => {
-      console.log(competitor);
       return PrismaCompetitorMapper.toDomain(competitor, competitor.rewards);
     });
 
