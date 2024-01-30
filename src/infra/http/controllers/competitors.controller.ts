@@ -16,6 +16,8 @@ import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-cas
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 import { CompetitorViewModel } from '../view-models/competitor-view-model';
+import { GetCompetitorRewardsUseCase } from 'src/app/use-cases/get-competitor-rewards';
+import { GetCompetitorRewardsDTO } from '../dtos/get-competitor-rewards-dto';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -25,6 +27,7 @@ export class CompetitorsController {
     private getCompetitorsUseCase: GetCompetitorsUseCase,
     private getCompetitorUseCase: GetCompetitorUseCase,
     private deleteCompetitorUseCase: DeleteCompetitorUseCase,
+    private getCompetitorRewardsUseCase: GetCompetitorRewardsUseCase,
   ) {}
 
   @Post()
@@ -90,6 +93,25 @@ export class CompetitorsController {
     try {
       const { competitor } = await this.getCompetitorUseCase.execute({
         params,
+      });
+
+      const competitorViewModel = CompetitorViewModel.toHTTP(
+        competitor,
+        competitor.rewards,
+      );
+
+      return competitorViewModel;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  @Get(':id/rewards')
+  @HttpCode(202)
+  async getCompetitorRewards(@Param() { id }: GetCompetitorRewardsDTO) {
+    try {
+      const { competitor } = await this.getCompetitorRewardsUseCase.execute({
+        id,
       });
 
       const competitorViewModel = CompetitorViewModel.toHTTP(

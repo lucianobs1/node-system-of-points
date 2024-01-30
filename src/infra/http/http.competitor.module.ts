@@ -12,6 +12,7 @@ import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use
 import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
+import { GetCompetitorRewardsUseCase } from 'src/app/use-cases/get-competitor-rewards';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use
     UpdateAvatarCompetitorUseCase,
     GetCompetitorsUseCase,
     GetCompetitorUseCase,
+    GetCompetitorRewardsUseCase,
     DeleteCompetitorUseCase,
     {
       provide: IStorageProvider,
