@@ -14,8 +14,8 @@ import { UpdateCompetitorUseCase } from 'src/app/use-cases/update-competitor-use
 import { CreateCompetitorUseCase } from 'src/app/use-cases/create-competitor-use-case';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
-import { CompetitorViewModel } from '../view-models/competitors-view-model';
 import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
+import { CompetitorViewModel } from '../view-models/competitor-view-model';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -57,7 +57,12 @@ export class CompetitorsController {
         surname,
       });
 
-      return CompetitorViewModel.toHTTP(competitor, competitor.rewards);
+      const competitorViewModel = CompetitorViewModel.toHTTP(
+        competitor,
+        competitor.rewards,
+      );
+
+      return competitorViewModel;
     } catch (error) {
       return error.message;
     }
@@ -69,11 +74,11 @@ export class CompetitorsController {
     try {
       const { competitors } = await this.getCompetitorsUseCase.execute();
 
-      return {
-        competitors: competitors.map((competitor) =>
-          CompetitorViewModel.toHTTP(competitor, competitor.rewards),
-        ),
-      };
+      const competitorsViewModel = competitors.map((competitor) =>
+        CompetitorViewModel.toHTTP(competitor, competitor.rewards),
+      );
+
+      return competitorsViewModel;
     } catch (error) {
       return error.message;
     }
@@ -87,7 +92,12 @@ export class CompetitorsController {
         params,
       });
 
-      return CompetitorViewModel.toHTTP(competitor, competitor.rewards);
+      const competitorViewModel = CompetitorViewModel.toHTTP(
+        competitor,
+        competitor.rewards,
+      );
+
+      return competitorViewModel;
     } catch (error) {
       return error.message;
     }

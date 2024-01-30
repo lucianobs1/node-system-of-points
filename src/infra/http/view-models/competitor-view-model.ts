@@ -1,5 +1,6 @@
 import { Competitor } from 'src/app/entities/competitor';
 import { Reward } from 'src/app/entities/reward';
+import { RewardViewModel } from './reward-view-model';
 
 export class CompetitorViewModel {
   static toHTTP(competitor: Competitor, rewardsByCompetitor?: Reward[]) {
@@ -12,14 +13,9 @@ export class CompetitorViewModel {
         avatar: competitor.avatar,
         createdAt: competitor.createdAt,
         updatedAt: competitor.updatedAt,
-        rewards: rewardsByCompetitor.map((rewardCompetitor) => {
-          return {
-            id: rewardCompetitor.id,
-            description: rewardCompetitor.description,
-            rewardedAt: rewardCompetitor.rewardedAt,
-            categoryId: rewardCompetitor.categoryId,
-          };
-        }),
+        rewards: rewardsByCompetitor.map((reward) =>
+          RewardViewModel.toHTTP(reward),
+        ),
       };
     } else {
       return {

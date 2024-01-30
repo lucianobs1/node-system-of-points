@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { CreateCategoryUseCase } from 'src/app/use-cases/create-category-use-case';
 import { CreateCategoryDTO } from '../dtos/create-category-dto';
 import { GetCategoriesUseCase } from 'src/app/use-cases/get-categories-use-case';
+import { CategoryViewModel } from '../view-models/categories-view-model';
 
 @Controller('categories')
 export class CategoriesController {
@@ -30,9 +31,13 @@ export class CategoriesController {
   @HttpCode(200)
   async getCategories() {
     try {
-      const categories = await this.getCategoriesUseCase.execute();
+      const { categories } = await this.getCategoriesUseCase.execute();
 
-      return categories;
+      const categoriesViewModel = categories.map((category) =>
+        CategoryViewModel.toHTTP(category),
+      );
+
+      return categoriesViewModel;
     } catch (error) {
       return error.message;
     }
