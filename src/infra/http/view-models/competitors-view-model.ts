@@ -8,6 +8,8 @@ export class CompetitorViewModel {
         id: competitor.id,
         name: competitor.name,
         surname: competitor.surname,
+        score: competitor.score,
+        avatar: competitor.avatar,
         createdAt: competitor.createdAt,
         updatedAt: competitor.updatedAt,
         rewards: rewardsByCompetitor.map((rewardCompetitor) => {
@@ -24,6 +26,8 @@ export class CompetitorViewModel {
         id: competitor.id,
         name: competitor.name,
         surname: competitor.surname,
+        score: competitor.score,
+        avatar: competitor.avatar,
         createdAt: competitor.createdAt,
         updatedAt: competitor.updatedAt,
         rewards: [],
