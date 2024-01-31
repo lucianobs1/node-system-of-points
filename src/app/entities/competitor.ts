@@ -7,6 +7,7 @@ export interface CompetitorProps {
   surname: string;
   avatar?: string;
   score?: number;
+  wallet?: number;
   rewards?: Reward[];
   createdAt: Date;
   updatedAt?: Date | null;
@@ -48,6 +49,10 @@ export class Competitor {
     return this.props.score;
   }
 
+  public get wallet() {
+    return this.props.wallet;
+  }
+
   public get rewards() {
     return this.props.rewards;
   }
@@ -74,6 +79,10 @@ export class Competitor {
 
   public set score(score: number) {
     this.props.score = score;
+  }
+
+  public set wallet(wallet: number) {
+    this.props.wallet = wallet;
   }
 
   public updated() {

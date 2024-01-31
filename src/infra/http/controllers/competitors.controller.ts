@@ -45,7 +45,7 @@ export class CompetitorsController {
     }
   }
 
-  @Put(':id/update')
+  @Put(':id')
   @HttpCode(202)
   async updateCompetitor(
     @Param('id') id: string,

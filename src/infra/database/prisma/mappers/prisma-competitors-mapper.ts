@@ -14,6 +14,7 @@ export class PrismaCompetitorMapper {
       surname: competitor.surname,
       avatar: competitor.avatar,
       score: competitor.score,
+      wallet: competitor.wallet,
       createdAt: competitor.createdAt,
       updatedAt: competitor.updatedAt,
     };
@@ -30,6 +31,7 @@ export class PrismaCompetitorMapper {
           surname: rawCompetitor.surname,
           avatar: rawCompetitor.avatar,
           score: rawCompetitor.score,
+          wallet: rawCompetitor.wallet,
           createdAt: rawCompetitor.createdAt,
           updatedAt: rawCompetitor.updatedAt,
           rewards: rewardsByCompetitor.map(
