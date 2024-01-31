@@ -13,6 +13,7 @@ import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 import { GetCompetitorsUseCase } from 'src/app/use-cases/get-competitors-use-case';
 import { DeleteCompetitorUseCase } from 'src/app/use-cases/delete-competitor-use-case';
 import { GetCompetitorRewardsUseCase } from 'src/app/use-cases/get-competitor-rewards';
+import { GetCompetitorsRankingUseCase } from 'src/app/use-cases/get-competitors-ranking-use-case';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { GetCompetitorRewardsUseCase } from 'src/app/use-cases/get-competitor-re
     UpdateAvatarCompetitorUseCase,
     GetCompetitorsUseCase,
     GetCompetitorUseCase,
+    GetCompetitorsRankingUseCase,
     GetCompetitorRewardsUseCase,
     DeleteCompetitorUseCase,
     {

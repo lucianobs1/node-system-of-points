@@ -18,6 +18,8 @@ import { GetCompetitorUseCase } from 'src/app/use-cases/get-competitor';
 import { CompetitorViewModel } from '../view-models/competitor-view-model';
 import { GetCompetitorRewardsUseCase } from 'src/app/use-cases/get-competitor-rewards';
 import { GetCompetitorRewardsDTO } from '../dtos/get-competitor-rewards-dto';
+import { GetCompetitorsRankingUseCase } from 'src/app/use-cases/get-competitors-ranking-use-case';
+import { CompetitorsRankingViewModel } from '../view-models/competitors-ranking-view-model';
 
 @Controller('competitors')
 export class CompetitorsController {
@@ -26,8 +28,9 @@ export class CompetitorsController {
     private updateCompetitorUseCase: UpdateCompetitorUseCase,
     private getCompetitorsUseCase: GetCompetitorsUseCase,
     private getCompetitorUseCase: GetCompetitorUseCase,
-    private deleteCompetitorUseCase: DeleteCompetitorUseCase,
+    private getCompetitorsRankingUseCase: GetCompetitorsRankingUseCase,
     private getCompetitorRewardsUseCase: GetCompetitorRewardsUseCase,
+    private deleteCompetitorUseCase: DeleteCompetitorUseCase,
   ) {}
 
   @Post()
@@ -79,6 +82,22 @@ export class CompetitorsController {
 
       const competitorsViewModel = competitors.map((competitor) =>
         CompetitorViewModel.toHTTP(competitor, competitor.rewards),
+      );
+
+      return competitorsViewModel;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  @Get('/ranking')
+  @HttpCode(202)
+  async getCompetitorsRanking() {
+    try {
+      const { competitors } = await this.getCompetitorsRankingUseCase.execute();
+
+      const competitorsViewModel = competitors.map((competitor) =>
+        CompetitorsRankingViewModel.toHTTP(competitor),
       );
 
       return competitorsViewModel;

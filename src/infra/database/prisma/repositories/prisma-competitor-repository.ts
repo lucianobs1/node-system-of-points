@@ -45,6 +45,22 @@ export class PrismaCompetitorsRepository implements CompetitorsRepository {
     return competitors;
   }
 
+  async findManyOrderByScore() {
+    const competitorsList = await this.prismaService.competitor.findMany({
+      orderBy: [
+        {
+          score: 'desc',
+        },
+      ],
+    });
+
+    const competitors = competitorsList.map((competitor) => {
+      return PrismaCompetitorMapper.toDomain(competitor);
+    });
+
+    return competitors;
+  }
+
   async save(competitor: Competitor) {
     const raw = PrismaCompetitorMapper.toPrisma(competitor);
 
